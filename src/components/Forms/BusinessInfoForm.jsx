@@ -50,7 +50,7 @@ const BusinessInfoForm = ({ onDataChange, initialData }) => {
   const handleGenerateContent = () => {
     // Ensure data is saved before navigating
     onDataChange(formData);
-    navigate('/builder/content');
+    navigate('/builder/templates');
   };
 
   return (

@@ -6,11 +6,14 @@ const Sidebar = () => {
   const { state } = useApp();
   const location = useLocation();
   const [isOpen, setIsOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
 
   // Auto-open sidebar on desktop by default
   useEffect(() => {
     const handleResize = () => {
-      if (window.innerWidth >= 1024) {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+      if (!mobile) {
         setIsOpen(true);
       } else {
         setIsOpen(false);
@@ -87,18 +90,25 @@ const Sidebar = () => {
       {/* Mobile menu button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="lg:hidden fixed top-4 left-4 z-50 bg-white p-2 rounded-md shadow-md"
+        className="lg:hidden fixed top-6 right-4 z-50 bg-white p-3 rounded-full shadow-lg border border-gray-200 hover:bg-gray-50 transition-all hover:scale-105"
       >
-        <span className="text-xl">{isOpen ? '✕' : '☰'}</span>
+        <span className="text-lg">{isOpen ? '✕' : '☰'}</span>
       </button>
 
       {/* Sidebar */}
-      <aside
-        className={`fixed lg:relative inset-y-0 left-0 z-40 bg-white border-r border-gray-200 transition-all duration-300 transform ${
-          isOpen ? 'translate-x-0' : '-translate-x-full lg:translate-x-0'
-        } ${isOpen ? 'w-64' : 'w-0 lg:w-64'}`}
-      >
-        <div className="flex flex-col h-full">
+      {(isOpen || !isMobile) && (
+        <aside
+          className={`
+            fixed lg:relative z-40 
+            bg-white border-l lg:border-l-0 lg:border-r border-gray-200 transition-all duration-300 
+            transform overflow-hidden
+            ${isMobile 
+              ? `inset-y-0 right-0 top-0 ${isOpen ? 'translate-x-0' : 'translate-x-full'} w-64`
+              : 'inset-y-0 left-0 top-0 translate-x-0 w-64'
+            }
+          `}
+        >
+        <div className={`flex flex-col h-full ${isMobile && !isOpen ? 'pointer-events-none' : ''}`}>
           {/* Sidebar Header */}
           <div className="p-6 border-b border-gray-200">
             <h2 className="text-lg font-semibold text-gray-900">Navigation</h2>
@@ -122,7 +132,7 @@ const Sidebar = () => {
                 }`}
                 onClick={() => {
                   // Close sidebar on mobile after clicking
-                  if (window.innerWidth < 1024) {
+                  if (isMobile) {
                     setIsOpen(false);
                   }
                 }}
@@ -143,10 +153,11 @@ const Sidebar = () => {
             </div>
           </div>
         </div>
-      </aside>
+        </aside>
+      )}
 
       {/* Overlay for mobile */}
-      {isOpen && (
+      {isOpen && isMobile && (
         <div
           className="fixed inset-0 bg-black bg-opacity-50 z-30 lg:hidden"
           onClick={() => setIsOpen(false)}

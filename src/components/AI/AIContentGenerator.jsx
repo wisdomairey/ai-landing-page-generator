@@ -175,10 +175,10 @@ const AIContentGenerator = ({ businessData, onContentGenerated }) => {
     
     console.log('Applied selected content:', finalContent);
     
-    // Navigate to the design step after a short delay
+    // Navigate to the templates step after a short delay
     setTimeout(() => {
       setIsApplying(false);
-      navigate('/builder/design');
+      navigate('/builder/templates');
     }, 1500);
   };
 

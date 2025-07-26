@@ -70,22 +70,22 @@ const ProjectManager = () => {
                 {/* Status Indicators */}
                 <div className="flex flex-wrap gap-2 mb-4">
                   {project.businessInfo && (
-                    <span className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
+                    <span key="business-info" className="px-2 py-1 bg-blue-100 text-blue-700 text-xs rounded-full">
                       Business Info
                     </span>
                   )}
                   {project.template && (
-                    <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                    <span key="template" className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
                       Template
                     </span>
                   )}
                   {project.aiContent && (
-                    <span className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
+                    <span key="ai-content" className="px-2 py-1 bg-purple-100 text-purple-700 text-xs rounded-full">
                       AI Content
                     </span>
                   )}
                   {project.exported && (
-                    <span className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">
+                    <span key="exported" className="px-2 py-1 bg-orange-100 text-orange-700 text-xs rounded-full">
                       Exported
                     </span>
                   )}

@@ -153,11 +153,12 @@ const Dashboard = () => {
                   </div>
                   <div className="flex items-center space-x-2">
                     {project.template && (
-                      <span className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
+                      <span key="project-template" className="px-2 py-1 bg-green-100 text-green-700 text-xs rounded-full">
                         {project.template.name}
                       </span>
                     )}
                     <Link
+                      key="project-edit"
                       to={`/projects/${project.id}/edit`}
                       className="text-blue-600 hover:text-blue-700 text-sm font-medium"
                     >
